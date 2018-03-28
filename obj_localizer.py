@@ -20,8 +20,6 @@ flags = tf.app.flags
 flags.DEFINE_string('output_path', '', output_dir + 'TFRecord')
 FLAGS = flags.FLAGS
 
-
-
 def main():
     # Build dictionary of bounding boxes using txt files from imagenet data.  Format is dict[image_filename] = [x_min, y_min, x_max, y_max]
     bbox_dict = get_image_data(images_dir)
@@ -45,17 +43,17 @@ def create_tf_record(fn, image_data, bbox_dict):
     height = 64  # Image height
     width = 64  # Image width
     image_format = 'jpeg'  # b'jpeg' or b'png'
-    print(bbox_dict)
-    print(bbox_dict[fn][1])
+    # print(bbox_dict)
+    # print(bbox_dict[fn][1])
     xmin = bbox_dict[fn][0]  # List of normalized left x coordinates in bounding box (1 per box)
     xmax = bbox_dict[fn][2]  # List of normalized right x coordinates in bounding box (1 per box)
     ymin = bbox_dict[fn][1]  # List of normalized top y coordinates in bounding box (1 per box)
     ymax = bbox_dict[fn][3]  # List of normalized bottom y coordinates in bounding box (1 per box)
     class_str = (fn.split('_'))[0][1:]
-    classes_text = [class_str]  # List of string class name of bounding box (1 per box)
+    classes_text = class_str  # List of string class name of bounding box (1 per box)
     classes = int(class_str)  # List of integer class id of bounding box (1 per box)
     # TODO END
-    tf_label_and_data = tf.train.Example(features=tf.train.Features(feature={'height':tf.train.Feature(int64_list=tf.train.Int64List(value=[height])), 'width':tf.train.Feature(int64_list=tf.train.Int64List(value=[width])), 'encoded':tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_data])), 'xmin':tf.train.Feature(int64_list=tf.train.Int64List(value=[xmin])), 'ymin':tf.train.Feature(int64_list=tf.train.Int64List(value=[ymin])), 'xmax':tf.train.Feature(int64_list=tf.train.Int64List(value=[xmax])), 'ymax':tf.train.Feature(int64_list=tf.train.Int64List(value=[ymax])), 'label':tf.train.Feature(int64_list=tf.train.Int64List(value=classes)),}))
+    tf_label_and_data = tf.train.Example(features=tf.train.Features(feature={'height':tf.train.Feature(int64_list=tf.train.Int64List(value=[height])), 'width':tf.train.Feature(int64_list=tf.train.Int64List(value=[width])), 'encoded':tf.train.Feature(bytes_list=tf.train.BytesList(value=[image_data])), 'xmin':tf.train.Feature(int64_list=tf.train.Int64List(value=[xmin])), 'ymin':tf.train.Feature(int64_list=tf.train.Int64List(value=[ymin])), 'xmax':tf.train.Feature(int64_list=tf.train.Int64List(value=[xmax])), 'ymax':tf.train.Feature(int64_list=tf.train.Int64List(value=[ymax])), 'label':tf.train.Feature(int64_list=tf.train.Int64List(value=[classes])),}))
     return tf_label_and_data
 
 def get_image_data(dir):
