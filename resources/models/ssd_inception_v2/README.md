@@ -1,0 +1,1 @@
+- Download the "ssd_inception_v2_coco" model from the TensorFlow object detection model zoo (https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md)

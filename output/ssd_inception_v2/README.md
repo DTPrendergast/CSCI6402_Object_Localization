@@ -1,0 +1,1 @@
+- After training your model by running "python train.py", the resulting output will populate this directory

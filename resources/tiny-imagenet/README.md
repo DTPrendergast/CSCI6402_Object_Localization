@@ -1,0 +1,2 @@
+-Download Tiny-ImageNet from https://tiny-imagenet.herokuapp.com/
+-Put the test, train, and val directories here
